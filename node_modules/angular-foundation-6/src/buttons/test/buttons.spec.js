@@ -1,0 +1,163 @@
+import angular from "angular";
+import mocks from "angular-mocks";
+
+import "src/buttons/buttons.js"
+
+describe('buttons', function () {
+
+  var inject = mocks.inject;
+  var module = mocks.module;
+
+  var $scope, $compile;
+
+  beforeEach(module('mm.foundation.buttons'));
+  beforeEach(inject(function (_$rootScope_, _$compile_) {
+    $scope = _$rootScope_;
+    $compile = _$compile_;
+  }));
+
+  describe('checkbox', function () {
+
+    var compileButton = function (markup, scope) {
+      var el = $compile(markup)(scope);
+      scope.$digest();
+      return el;
+    };
+
+    //model -> UI
+    it('should work correctly with default model values', function () {
+      $scope.model = false;
+      var btn = compileButton('<button ng-model="model" btn-checkbox>click</button>', $scope);
+      expect(btn).not.toHaveClass('hollow');
+
+      $scope.model = true;
+      $scope.$digest();
+      expect(btn).toHaveClass('hollow');
+    });
+
+    it('should bind custom model values', function () {
+      $scope.model = 1;
+      var btn = compileButton('<button ng-model="model" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">click</button>', $scope);
+      expect(btn).toHaveClass('hollow');
+
+      $scope.model = 0;
+      $scope.$digest();
+      expect(btn).not.toHaveClass('hollow');
+    });
+
+    //UI-> model
+    it('should toggle default model values on click', function () {
+      $scope.model = false;
+      var btn = compileButton('<button ng-model="model" btn-checkbox>click</button>', $scope);
+
+      btn[0].click();
+      expect($scope.model).toEqual(true);
+      expect(btn).toHaveClass('hollow');
+
+      btn[0].click();
+      expect($scope.model).toEqual(false);
+      expect(btn).not.toHaveClass('hollow');
+    });
+
+    it('should toggle custom model values on click', function () {
+      $scope.model = 0;
+      var btn = compileButton('<button ng-model="model" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">click</button>', $scope);
+
+      btn[0].click();
+      expect($scope.model).toEqual(1);
+      expect(btn).toHaveClass('hollow');
+
+      btn[0].click();
+      expect($scope.model).toEqual(0);
+      expect(btn).not.toHaveClass('hollow');
+    });
+
+    it('should monitor true / false value changes - issue 666', function () {
+
+      $scope.model = 1;
+      $scope.trueVal = 1;
+      var btn = compileButton('<button ng-model="model" btn-checkbox btn-checkbox-true="trueVal">click</button>', $scope);
+
+      expect(btn).toHaveClass('hollow');
+      expect($scope.model).toEqual(1);
+
+      $scope.model = 2;
+      $scope.trueVal = 2;
+      $scope.$digest();
+
+      expect(btn).toHaveClass('hollow');
+      expect($scope.model).toEqual(2);
+    });
+  });
+
+  describe('radio', function () {
+
+    var compileButtons = function (markup, scope) {
+      var el = $compile('<div>'+markup+'</div>')(scope);
+      scope.$digest();
+      return el.find('button');
+    };
+
+    //model -> UI
+    it('should work correctly set active class based on model', function () {
+      var btns = compileButtons('<button ng-model="model" btn-radio="1">click1</button><button ng-model="model" btn-radio="2">click2</button>', $scope);
+      expect(btns.eq(0)).not.toHaveClass('hollow');
+      expect(btns.eq(1)).not.toHaveClass('hollow');
+
+      $scope.model = 2;
+      $scope.$digest();
+      expect(btns.eq(0)).not.toHaveClass('hollow');
+      expect(btns.eq(1)).toHaveClass('hollow');
+    });
+
+    //UI->model
+    it('should work correctly set active class based on model', function () {
+      var btns = compileButtons('<button ng-model="model" btn-radio="1">click1</button><button ng-model="model" btn-radio="2">click2</button>', $scope);
+      expect($scope.model).toBeUndefined();
+
+      btns[0].click();
+      expect($scope.model).toEqual(1);
+      expect(btns.eq(0)).toHaveClass('hollow');
+      expect(btns.eq(1)).not.toHaveClass('hollow');
+
+      btns[1].click();
+      expect($scope.model).toEqual(2);
+      expect(btns.eq(1)).toHaveClass('hollow');
+      expect(btns.eq(0)).not.toHaveClass('hollow');
+    });
+
+    it('should work correctly when clicking the active button', function () {
+      var btns = compileButtons('<button ng-model="model" btn-radio="1">click1</button><button ng-model="model" btn-radio="2">click2</button>', $scope);
+      expect($scope.model).toBeUndefined();
+
+      btns[0].click();
+      expect($scope.model).toEqual(1);
+      expect(btns.eq(0)).toHaveClass('hollow');
+      expect(btns.eq(1)).not.toHaveClass('hollow');
+
+      btns[0].click();
+      expect($scope.model).toEqual(1);
+      expect(btns.eq(0)).toHaveClass('hollow');
+      expect(btns.eq(1)).not.toHaveClass('hollow');
+    });
+
+    it('should watch btn-radio values and update state accordingly', function () {
+      $scope.values = ["value1", "value2"];
+
+      var btns = compileButtons('<button ng-model="model" btn-radio="values[0]">click1</button><button ng-model="model" btn-radio="values[1]">click2</button>', $scope);
+      expect(btns.eq(0)).not.toHaveClass('hollow');
+      expect(btns.eq(1)).not.toHaveClass('hollow');
+
+      $scope.model = "value2";
+      $scope.$digest();
+      expect(btns.eq(0)).not.toHaveClass('hollow');
+      expect(btns.eq(1)).toHaveClass('hollow');
+
+      $scope.values[1] = "value3";
+      $scope.model = "value3";
+      $scope.$digest();
+      expect(btns.eq(0)).not.toHaveClass('hollow');
+      expect(btns.eq(1)).toHaveClass('hollow');
+    });
+  });
+});

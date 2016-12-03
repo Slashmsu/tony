@@ -13,9 +13,8 @@
     main.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', {
-                template: 'Hello world'
+                template: '<tony></tony>'
             })
-
 
         ;
         $routeProvider.otherwise({ redirectTo: '/' });
@@ -24,9 +23,6 @@
 
     main.controller('AppCtrl', function ($scope) {
 
-
-
     });
-
 
 })();

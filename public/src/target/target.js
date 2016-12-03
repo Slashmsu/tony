@@ -1,20 +1,20 @@
 (function() {
     'use strict';
-    angular.module('app').directive('tony', tony);
+    angular.module('app').directive('target', target);
 
-    angular.module('app').controller('TonyCtrl', TonyCtrl);
+    angular.module('app').controller('TargetCtrl', TargetCtrl);
 
 
-    function tony() {
+    function target() {
         return {
             restrict: 'E',
             scope: true,
-            controller: 'TonyCtrl',
-            templateUrl: 'src/tony/view/tony.html'
+            controller: 'TargetCtrl',
+            templateUrl: 'src/target/view/target.html'
         };
     }
 
-    function TonyCtrl($scope) {
+    function TargetCtrl($scope) {
 
     }
 })();

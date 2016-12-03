@@ -1,0 +1,12 @@
+<span
+    ng-class="{'is-open': $ctrl.active}"
+    ng-click="!$ctrl.toggleOnHover && $ctrl.toggle()"
+    ng-mouseover="$ctrl.toggleOnHover && $ctrl.mouseover()"
+    ng-mouseleave="$ctrl.toggleOnHover && $ctrl.mouseleave($event)"></span>
+<div
+    ng-style="$ctrl.css"
+    ng-class="{'is-open': $ctrl.active}"
+    ng-attr-aria-hidden="$ctrl.active"
+    ng-mouseover="$ctrl.toggleOnHover && $ctrl.mouseover()"
+    ng-mouseleave="$ctrl.toggleOnHover && $ctrl.mouseleave($event)"
+    class="dropdown-pane{{$ctrl.paneAlign && ' dropdown-pane-' + $ctrl.paneAlign}}"></div>

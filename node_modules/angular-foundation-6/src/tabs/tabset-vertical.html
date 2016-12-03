@@ -1,0 +1,14 @@
+<div class="tabbable row collapse">
+  <div class="medium-3 columns">
+    <ul class="tabs vertical" ng-transclude></ul>
+  </div>
+  <div class="medium-9 columns">
+    <div class="tabs-content vertical">
+      <div class="tabs-panel"
+        ng-repeat="tab in tabs"
+        ng-class="{'is-active': tab.active}">
+        <div tab-content-transclude="tab"></div>
+      </div>
+    </div>
+  </div>
+</div>

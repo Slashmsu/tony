@@ -1,0 +1,10 @@
+<div class="tabbable">
+  <ul class="tabs" ng-transclude></ul>
+  <div class="tabs-content">
+    <div class="tabs-panel"
+      ng-repeat="tab in tabs"
+      ng-class="{'is-active': tab.active}">
+      <div tab-content-transclude="tab"></div>
+    </div>
+  </div>
+</div>

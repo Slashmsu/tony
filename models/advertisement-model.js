@@ -5,6 +5,8 @@ var Schema = mongoose.Schema;
 var AdvertisementSchema = new Schema({
     title: String,
     text: String,
+    // author:
+    // attachedPhoto:
     created_at: Date,
     updated_at: Date
 });

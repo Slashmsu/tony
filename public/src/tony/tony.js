@@ -1,20 +1,20 @@
 (function() {
     'use strict';
-    angular.module('app').directive('advertisement', advertisement);
+    angular.module('app').directive('tony', tony);
 
-    angular.module('app').controller('AdvertisementCtrl', AdvertisementCtrl);
+    angular.module('app').controller('TonyCtrl', TonyCtrl);
 
 
-    function advertisement() {
+    function tony() {
         return {
             restrict: 'E',
             scope: true,
-            controller: 'AdvertisementCtrl',
-            templateUrl: 'src/advertisement/view/advertisement.html'
+            controller: 'TonyCtrl',
+            templateUrl: 'src/tony/view/tony.html'
         };
     }
 
-    function AdvertisementCtrl($scope) {
+    function TonyCtrl($scope) {
 
     }
 })();
