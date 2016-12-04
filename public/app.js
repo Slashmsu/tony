@@ -15,6 +15,9 @@
             .when('/', {
                 template: '<tony></tony>'
             })
+            .when('/add', {
+                template: '<add></add>'
+            })
 
         ;
         $routeProvider.otherwise({ redirectTo: '/' });

@@ -14,7 +14,12 @@
         };
     }
 
-    function TonyCtrl($scope) {
+    function TonyCtrl($scope, $location) {
+
+        $scope.changeView = function(){
+            $location.path("add"); // path not hash
+        }
 
     }
+
 })();
