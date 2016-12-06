@@ -1,4 +1,3 @@
-/routes..
+/bower_components
 /node_modules
-/public/uploads
-# Created by .ignore support plugin (hsz.mobi)
+/.idea

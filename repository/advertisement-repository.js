@@ -22,8 +22,10 @@ module.exports = {
 
     findById: function(MongooseFilter, callback) {
         Advertisement.findOne({ _id: MongooseFilter.id }, function(err, result) {
-            if (err) return next(err);
-            else callback(result);
+            if (err)
+                console.log(err);
+            else
+                callback(result);
         });
     },
 
@@ -63,7 +65,8 @@ module.exports = {
         Advertisement.findOneAndRemove({ _id: advertisementId }, function(err) {
             if (err)
                 console.log(err);
-            else callback();
+            else
+                callback();
         });
     }
 
