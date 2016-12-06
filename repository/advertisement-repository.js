@@ -2,8 +2,16 @@ var Advertisement = require('../models/advertisement-model');
 
 module.exports = {
 
-    findWithParameters: function(limit, offset, callback) {
-        Advertisement.find({}).skip(offset).limit(limit)
+    findWithParameters: function(mongooseFilter, callback) {
+
+        if (mongooseFilter.keywords)
+            var qb = Advertisement.find({ title: { $regex: ".*" + mongooseFilter.keywords + ".*" }});
+        else
+            var qb = Advertisement.find({});
+
+        qb.skip(mongooseFilter.offset)
+            .limit(mongooseFilter.limit)
+            .sort('-created_at')
             .exec( function (err, results) {
                 if (err)
                     console.log(err);
@@ -12,8 +20,8 @@ module.exports = {
             });
     },
 
-    findById: function(advertisementId, callback) {
-        Advertisement.findOne({ _id: advertisementId }, function(err, result) {
+    findById: function(MongooseFilter, callback) {
+        Advertisement.findOne({ _id: MongooseFilter.id }, function(err, result) {
             if (err) return next(err);
             else callback(result);
         });
@@ -36,7 +44,7 @@ module.exports = {
 
     update: function(advertisementId, body, callback) {
         Advertisement.findOne({ _id: advertisementId }, function(err, result) {
-            if (err) return next(err);
+            if (err) console.log(err);
             result.title = body.title;
             result.description = body.description;
             result.updated_at = new Date();
@@ -48,6 +56,14 @@ module.exports = {
                     callback(updatedResult);
             });
 
+        });
+    },
+
+    remove: function(advertisementId, callback) {
+        Advertisement.findOneAndRemove({ _id: advertisementId }, function(err) {
+            if (err)
+                console.log(err);
+            else callback();
         });
     }
 

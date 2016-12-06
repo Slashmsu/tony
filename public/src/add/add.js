@@ -14,18 +14,36 @@
         };
     }
 
-    function AddCtrl($scope, $location, TonyRepository) {
+    function AddCtrl($scope, $location, TonyRepository, $routeParams) {
+        if ($routeParams.id) {
+            TonyRepository.getById($routeParams.id).then(function successCallback(foundTony) {
+                if ($routeParams.id && foundTony) {
+                    $scope.tony = foundTony;
+                } else {
+                    $scope.tony = {title: "", description: ""};
+                }
+            });
+        } else {
+            $scope.tony = {title: "", description: ""};
+        }
 
-        $scope.advertisement = {title: "", text: ""};
 
         $scope.changeView = function() {
             $location.path("/");
         };
 
         $scope.save = function (tony) {
-            TonyRepository.saveTony(tony).then(function successCallback() {
-                $location.path("/");
-            });
+            if (tony.title && tony.description) {
+                if (tony._id)
+                    TonyRepository.update(tony).then(function successCallback() {
+                        console.log();
+                        $location.path("/");
+                    });
+                else
+                    TonyRepository.save(tony).then(function successCallback() {
+                    $location.path("/");
+                });
+            }
         };
 
     }

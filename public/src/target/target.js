@@ -8,7 +8,10 @@
     function target() {
         return {
             restrict: 'E',
-            scope: true,
+            scope: {
+                title: "=",
+                description: "="
+            },
             controller: 'TargetCtrl',
             templateUrl: 'src/target/view/target.html'
         };

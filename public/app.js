@@ -18,6 +18,9 @@
             .when('/add', {
                 template: '<add></add>'
             })
+            .when('/update/:id', {
+                template: '<add></add>'
+            })
 
         ;
         $routeProvider.otherwise({ redirectTo: '/' });

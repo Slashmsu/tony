@@ -1,6 +1,7 @@
 /**
  * Created by SlashMSU on 29/11/2016.
  */
+
 var express = require('express');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
@@ -18,10 +19,18 @@ mongoose.connect(secret.database, function(err) {
         console.log('Connected to database');
 });
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+};
+
 //Middleware
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(allowCrossDomain);
 
 var advertisementRoutes = require('./routes/advertisement-route');
 app.use(advertisementRoutes);

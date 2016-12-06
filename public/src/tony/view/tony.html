@@ -5,7 +5,7 @@
         <div class="box">
             <div class="container-1">
                 <span class="icon"><i class="fa fa-search"></i></span>
-                <input type="search" id="search" placeholder="Search..." />
+                <input ng-model="filter.keywords" type="search" id="search" placeholder="Search...and press enter" ng-keydown="$event.which === 13 && loadTonies(filter)"/>
             </div>
         </div>
     </div>
@@ -15,44 +15,11 @@
 </div>
 <div class="container">
     <div class="row" style="margin-top: 10px;">
-        <div class="col-md-4">
-            <target></target>
-        </div>
-        <div class="col-md-4">
-            <target></target>
-        </div>
-        <div class="col-md-4">
-            <target></target>
-        </div>
-
-        <div class="col-md-4">
-            <target></target>
-        </div>
-        <div class="col-md-4">
-            <target></target>
-        </div>
-        <div class="col-md-4">
-            <target></target>
-        </div>
-
-        <div class="col-md-4">
-            <target></target>
-        </div>
-        <div class="col-md-4">
-            <target></target>
-        </div>
-        <div class="col-md-4">
-            <target></target>
-        </div>
-
-        <div class="col-md-4">
-            <target></target>
-        </div>
-        <div class="col-md-4">
-            <target></target>
-        </div>
-        <div class="col-md-4">
-            <target></target>
+        <div ng-repeat="tony in tonies">
+            <div class="col-md-4">
+                <target description="tony.description" title="tony.title"></target>
+                <center style="margin-top: 5px"><button ng-click="goToUpdate(tony._id)" class="btn btn-warning">Edit</button></center>
+            </div>
         </div>
     </div>
 </div>

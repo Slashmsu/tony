@@ -8,10 +8,11 @@
 
     function TonyRepository($http) {
         return {
-            getList: function () {
+            getList: function (filter) {
                 return $http({
                     method: 'GET'
-                    , url: 'http://localhost:7000/tony'
+                    ,url: 'http://localhost:7000/tony',
+                    params: filter
                 }).then(function successCallback(response) {
                         return response.data;
                     }, function errorCallback(response) {
@@ -45,13 +46,12 @@
                         // or server returns response with an error status.
                     });
             }
-            , saveTony: function (tony) {
+            , save: function (tony) {
                 return $http({
                     method: 'POST'
                     , url: 'http://localhost:7000/tony'
                     , data: tony
                 }).then(function successCallback(response) {
-                        console.log(response.data);
                         return response.data;
                     }, function errorCallback(response) {
                         // called asynchronously if an error occurs
@@ -59,10 +59,15 @@
                     });
             }
             , update: function (tony) {
-                $http({
+                return $http({
                     method: 'PUT'
-                    , url: 'http://localhost:7000/tony/' + tony.id
+                    , url: 'http://localhost:7000/tony/' + tony._id
                     , data: tony
+                }).then(function successCallback(response) {
+                    return response.data;
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
                 });
             }
             , remove: function (tony) {

@@ -14,11 +14,27 @@
         };
     }
 
-    function TonyCtrl($scope, $location) {
+    function TonyCtrl($scope, $location, TonyRepository) {
 
-        $scope.changeView = function(){
-            $location.path("add"); // path not hash
-        }
+        $scope.tonies = [];
+        $scope.filter = {keywords: null};
+
+        $scope.changeView = function() {
+            $location.path("add");
+        };
+
+        $scope.goToUpdate = function (tonyId) {
+            $location.path("update/" + tonyId);
+        };
+
+        $scope.loadTonies = function (filter) {
+            TonyRepository.getList(filter).then(function successCallback(tonies) {
+                $scope.tonies = tonies;
+            });
+        };
+
+        // Init
+        $scope.loadTonies();
 
     }
 

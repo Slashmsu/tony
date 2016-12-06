@@ -5,22 +5,33 @@ var mime = require('mime');
 var assert = require('assert');
 var AdvertisementRepository = require('../repository/advertisement-repository');
 
-
 //======================================================================================================================
 // Get advertisement by id
 //======================================================================================================================
 
 router.get('/tony', function(req, res) {
-    var limit = parseInt(req.query.limit);
-    var offset = parseInt(req.query.offset);
+    var mongooseFilter = require('../services/service-models/MongooseFilter');
 
-    AdvertisementRepository.findWithParameters(limit, offset, function (foundAdvertisements) {
+    if ( req.query.offset !== undefined && preq.query.limit !== undefined) {
+        mongooseFilter.offset = parseInt(req.query.offset);
+        mongooseFilter.limit = parseInt(req.query.limit);
+    }
+
+    if (req.query.keywords)
+        mongooseFilter.keywords = req.query.keywords;
+    else
+        delete mongooseFilter.keywords;
+
+    AdvertisementRepository.findWithParameters(mongooseFilter, function (foundAdvertisements) {
         res.send(foundAdvertisements);
     });
 });
 
 router.get('/tony/:id', function(req, res) {
-    AdvertisementRepository.findById(req.params.id , function (foundAdvertisement) {
+    var mongooseFilter = require('../services/service-models/MongooseFilter');
+    mongooseFilter.id = req.params.id;
+
+    AdvertisementRepository.findById(mongooseFilter , function (foundAdvertisement) {
         res.send(foundAdvertisement);
     });
 });
@@ -46,8 +57,9 @@ router.put('/tony/:id', function(req, res){
 //======================================================================================================================
 
 router.delete('/tony/:id', function(req, res) {
-    res.send(123);
-
+    AdvertisementRepository.remove(req.params.id , function () {
+        res.status(200).send("Object with id " + req.params.id + " removed");
+    });
 });
 
 //======================================================================================================================

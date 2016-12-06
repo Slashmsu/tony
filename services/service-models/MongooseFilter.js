@@ -3,8 +3,6 @@
  */
 
 module.exports = {
-   filter: {
-      id: String,
-      name: String
-  }
+  id: String,
+  keywords: String
 };
