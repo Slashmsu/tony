@@ -1,16 +1,16 @@
 var mongoose = require('mongoose');
-// var mongoosastic = require('mongoosastic');
 var Schema = mongoose.Schema;
 
 var AdvertisementSchema = new Schema({
     title: String,
-    text: String,
+    description: String,
     // author:
     // attachedPhoto:
+    // likes:
+    // dislikes:
     created_at: Date,
     updated_at: Date
 });
-
 
 // AdvertisementSchema.plugin(mongoosastic, {
 //   hosts: [

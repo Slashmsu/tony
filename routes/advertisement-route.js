@@ -1,56 +1,52 @@
 'use strict';
 
-Error.stackTraceLimit = Infinity;
-var Advertisement = require('../models/advertisement-model');
 var router = require('express').Router();
 var mime = require('mime');
 var assert = require('assert');
 var AdvertisementRepository = require('../repository/advertisement-repository');
 
+
 //======================================================================================================================
 // Get advertisement by id
 //======================================================================================================================
 
-router.get('/advertisement', function(req, res, next) {
-    // var MongooseFilter = require('../services/service-models/MongooseFilter');
+router.get('/tony', function(req, res) {
+    var limit = parseInt(req.query.limit);
+    var offset = parseInt(req.query.offset);
 
+    AdvertisementRepository.findWithParameters(limit, offset, function (foundAdvertisements) {
+        res.send(foundAdvertisements);
+    });
 });
 
-router.get('/advertisement/:id', function(req, res, next) {
-    // var MongooseFilter = require('../services/service-models/MongooseFilter');
-
+router.get('/tony/:id', function(req, res) {
+    AdvertisementRepository.findById(req.params.id , function (foundAdvertisement) {
+        res.send(foundAdvertisement);
+    });
 });
 
 //======================================================================================================================
 // Add advertisement
 //======================================================================================================================
 
-router.post('/add-advertisement', function(req, res, next) {
-    var advertisement = new Advertisement();
-    advertisement.title = req.body.title;
-    advertisement.text = req.body.text;
-    advertisement.created_at = new Date();
-    advertisement.updated_at = new Date();
-
-    var promise = advertisement.save();
-    assert.ok(promise instanceof require('mpromise'));
-
-    promise.then(function (savedAdvertisement) {
-        res.send(savedAdvertisement);
+router.post('/tony', function(req, res) {
+    AdvertisementRepository.save(req.body , function (saveAdvertisement) {
+        res.send(saveAdvertisement);
     });
-
 });
 
-router.post('/edit-advertisement/:id', function(req, res, next){
-
+router.put('/tony/:id', function(req, res){
+    AdvertisementRepository.update(req.params.id, req.body , function (updaterAdvertisement) {
+        res.send(updaterAdvertisement);
+    });
 });
 
 //======================================================================================================================
 // Remove advertisement
 //======================================================================================================================
 
-router.get('/remove-advertisement/:id', function(req, res) {
-
+router.delete('/tony/:id', function(req, res) {
+    res.send(123);
 
 });
 

@@ -14,13 +14,19 @@
         };
     }
 
-    function AddCtrl($scope, $location) {
+    function AddCtrl($scope, $location, TonyRepository) {
 
         $scope.advertisement = {title: "", text: ""};
 
         $scope.changeView = function() {
             $location.path("/");
-        }
+        };
+
+        $scope.save = function (tony) {
+            TonyRepository.saveTony(tony).then(function successCallback() {
+                $location.path("/");
+            });
+        };
 
     }
 

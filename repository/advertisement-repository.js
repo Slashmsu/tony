@@ -2,30 +2,52 @@ var Advertisement = require('../models/advertisement-model');
 
 module.exports = {
 
-    findAll: function(MongooseFilter, callback) {
-        Advertisement.find({}, function(err, results) {
+    findWithParameters: function(limit, offset, callback) {
+        Advertisement.find({}).skip(offset).limit(limit)
+            .exec( function (err, results) {
+                if (err)
+                    console.log(err);
+                else
+                    callback(results);
+            });
+    },
+
+    findById: function(advertisementId, callback) {
+        Advertisement.findOne({ _id: advertisementId }, function(err, result) {
             if (err) return next(err);
+            else callback(result);
         });
     },
 
-    findById: function(MongooseFilter, callback) {
-        Advertisement.find({ _id: MongooseFilter._id }, function(err, results) {
-            if (err) return next(err);
-            else callback(results);
+    save: function(body, callback) {
+        var advertisement = new Advertisement();
+        advertisement.title = body.title;
+        advertisement.description = body.description;
+        advertisement.created_at = new Date();
+        advertisement.updated_at = new Date();
+
+        advertisement.save(function (err, result) {
+            if (err)
+                console.log(err);
+            else
+                callback(result);
         });
     },
 
-    findByShartnoma: function(MongooseFilter, callback) {
-        Advertisement.find({ _id: MongooseFilter._id }, function(err, results) {
+    update: function(advertisementId, body, callback) {
+        Advertisement.findOne({ _id: advertisementId }, function(err, result) {
             if (err) return next(err);
-            else callback(results);
-        });
-    },
+            result.title = body.title;
+            result.description = body.description;
+            result.updated_at = new Date();
 
-    findByName: function(MongooseFilter, next, callback) {
-        Advertisement.findOne({ name: MongooseFilter.name }, function(err, results) {
-            if (err) return next(err);
-            callback(results);
+            result.save(function (err, updatedResult) {
+                if (err)
+                    console.log(err);
+                else
+                    callback(updatedResult);
+            });
+
         });
     }
 
