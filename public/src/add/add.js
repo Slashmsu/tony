@@ -27,7 +27,6 @@
             $scope.tony = {title: "", description: ""};
         }
 
-
         $scope.changeView = function() {
             $location.path("/");
         };

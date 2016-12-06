@@ -23,7 +23,13 @@
                 LocalStorageRepository.setToLocalStorage("user", logenedUser.user);
                 LocalStorageRepository.setToLocalStorage("token", logenedUser.token);
                 LocalStorageRepository.setToken(logenedUser.token);
+
+                $location.path("/");
             });
+        };
+
+        $scope.changeView = function(view) {
+            $location.path(view);
         };
 
     }

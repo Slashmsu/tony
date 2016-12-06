@@ -14,13 +14,20 @@
         };
     }
 
-    function TonyCtrl($scope, $location, TonyRepository) {
+    function TonyCtrl($scope, $location, TonyRepository, LocalStorageRepository) {
 
         $scope.tonies = [];
         $scope.filter = {keywords: null};
+        $scope.currentUser = LocalStorageRepository.getCurrentUser();
 
-        $scope.changeView = function() {
-            $location.path("add");
+        $scope.changeView = function(view) {
+            $location.path(view);
+        };
+
+        $scope.logOut = function() {
+            $location.path("login");
+            $scope.currentUser = null;
+            LocalStorageRepository.clearAll();
         };
 
         $scope.goToUpdate = function (tonyId) {

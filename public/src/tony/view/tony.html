@@ -10,7 +10,9 @@
         </div>
     </div>
     <div class="col-md-4">
-        <button ng-click="changeView()" type="button" class="btn btn-default" style="background-color: #65737e; height: 50px; width: 150px">New...</button>
+        <button ng-click="changeView('add')" type="button" class="btn btn-default" style="background-color: #65737e; height: 50px; width: 150px">New...</button>
+        <button ng-show="!currentUser" ng-click="changeView('login')" type="button" class="btn btn-default" style="background-color: #65737e; height: 50px; width: 150px">Log in</button>
+        <button ng-show="currentUser" ng-click="logOut()" type="button" class="btn btn-default" style="background-color: #65737e; height: 50px; width: 150px">Log out</button>
     </div>
 </div>
 <div class="container">

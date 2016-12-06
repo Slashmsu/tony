@@ -22,6 +22,14 @@
 
             setToken: function (token) {
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + token;
+            },
+
+            getCurrentUser: function () {
+                return localStorageService.get("user");
+            },
+
+            clearAll: function() {
+                return localStorageService.clearAll();
             }
 
         };
