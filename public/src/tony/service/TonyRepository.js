@@ -6,12 +6,17 @@
     angular.module('app')
         .service('TonyRepository', TonyRepository);
 
-    function TonyRepository($http) {
+    function TonyRepository($http, LocalStorageRepository) {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + LocalStorageRepository.getFromLocalStorage("token");
         return {
             getList: function (filter) {
                 return $http({
-                    method: 'GET'
-                    ,url: 'http://localhost:7000/tony',
+                    method: 'GET',
+                    url: 'http://localhost:7000/tony',
+                    header: {
+                        "Content-Type" : 'application/json',
+                        "Authorization": LocalStorageRepository.getFromLocalStorage("token")
+                    },
                     params: filter
                 }).then(function successCallback(response) {
                         return response.data;
@@ -71,7 +76,16 @@
                 });
             }
             , remove: function (tony) {
-                return $http.delete('http://localhost:7000/tony/' + tony.id);
+                return $http({
+                    method: 'DELETE'
+                    , url: 'http://localhost:7000/tony/' + tony._id
+                    , data: tony
+                }).then(function successCallback(response) {
+                    return response.data;
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
             }
         };
     }

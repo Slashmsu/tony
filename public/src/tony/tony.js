@@ -33,7 +33,14 @@
             });
         };
 
-        // Init
+        $scope.remove = function (tony) {
+            TonyRepository.remove(tony).then(function successCallback() {
+                $scope.tonies.splice($scope.tonies.indexOf(tony), 1);
+            });
+        };
+
+        // ================================ Init =======================================================================
+
         $scope.loadTonies();
 
     }

@@ -5,7 +5,7 @@
     'use strict';
 
     var main = angular.module('app', [
-        'ngRoute', 'ui.bootstrap'
+        'ngRoute', 'ui.bootstrap', 'LocalStorageModule'
 //=================    My modules     ==================================================================================
     ]);
 //==================================== Routing =========================================================================
@@ -20,6 +20,8 @@
             })
             .when('/update/:id', {
                 template: '<add></add>'
+            }).when('/login/', {
+                template: '<login></login>'
             })
 
         ;

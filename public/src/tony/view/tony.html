@@ -18,7 +18,10 @@
         <div ng-repeat="tony in tonies">
             <div class="col-md-4">
                 <target description="tony.description" title="tony.title"></target>
-                <center style="margin-top: 5px"><button ng-click="goToUpdate(tony._id)" class="btn btn-warning">Edit</button></center>
+                <center style="margin-top: 5px">
+                    <button ng-click="goToUpdate(tony._id)" class="btn btn-warning">Edit</button>
+                    <button ng-click="remove(tony)" class="btn btn-danger">Remove</button>
+                </center>
             </div>
         </div>
     </div>
