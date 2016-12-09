@@ -9,7 +9,7 @@
     angular.module('app')
         .service('LocalStorageRepository', LocalStorageRepository);
 
-    function LocalStorageRepository(localStorageService, $http) {
+    function LocalStorageRepository(localStorageService) {
         return {
             
             setToLocalStorage: function (key, value) {
@@ -20,12 +20,8 @@
                 return localStorageService.get(key);
             },
 
-            setToken: function (token) {
-                $http.defaults.headers.common['Authorization'] = 'Basic ' + token;
-            },
-
             getCurrentUser: function () {
-                return localStorageService.get("user");
+                return localStorageService.get("currentUser");
             },
 
             clearAll: function() {

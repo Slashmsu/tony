@@ -4,9 +4,9 @@
 (function () {
     'use strict';
     angular.module('app')
-        .service('TonyRepository', TonyRepository);
+        .service('MainRepository', MainRepository);
 
-    function TonyRepository($http, LocalStorageRepository) {
+    function MainRepository($http, LocalStorageRepository) {
         $http.defaults.headers.common['Authorization'] = 'Basic ' + LocalStorageRepository.getFromLocalStorage("token");
         return {
             getList: function (filter) {

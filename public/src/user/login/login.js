@@ -10,7 +10,7 @@
             restrict: 'E',
             scope: true,
             controller: 'LoginCtrl',
-            templateUrl: 'src/login/view/login.html'
+            templateUrl: 'src/user/login/view/login.html'
         };
     }
 
@@ -20,9 +20,8 @@
 
         $scope.login = function (user) {
             UserRepository.authenticate(user).then(function successCallback(logenedUser) {
-                LocalStorageRepository.setToLocalStorage("user", logenedUser.user);
+                LocalStorageRepository.setToLocalStorage("currentUser", logenedUser.user);
                 LocalStorageRepository.setToLocalStorage("token", logenedUser.token);
-                LocalStorageRepository.setToken(logenedUser.token);
 
                 $location.path("/");
             });

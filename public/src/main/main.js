@@ -1,20 +1,20 @@
 (function() {
     'use strict';
-    angular.module('app').directive('tony', tony);
+    angular.module('app').directive('main', main);
 
-    angular.module('app').controller('TonyCtrl', TonyCtrl);
+    angular.module('app').controller('MainCtrl', MainCtrl);
 
 
-    function tony() {
+    function main() {
         return {
             restrict: 'E',
             scope: true,
-            controller: 'TonyCtrl',
-            templateUrl: 'src/tony/view/tony.html'
+            controller: 'MainCtrl',
+            templateUrl: 'src/main/view/main.html'
         };
     }
 
-    function TonyCtrl($scope, $location, TonyRepository, LocalStorageRepository) {
+    function MainCtrl($scope, $location, MainRepository, LocalStorageRepository) {
 
         $scope.tonies = [];
         $scope.filter = {keywords: null};
@@ -30,19 +30,19 @@
             LocalStorageRepository.clearAll();
         };
 
-        $scope.goToUpdate = function (tonyId) {
-            $location.path("update/" + tonyId);
+        $scope.goToUpdate = function (mainId) {
+            $location.path("update/" + mainId);
         };
 
         $scope.loadTonies = function (filter) {
-            TonyRepository.getList(filter).then(function successCallback(tonies) {
+            MainRepository.getList(filter).then(function successCallback(tonies) {
                 $scope.tonies = tonies;
             });
         };
 
-        $scope.remove = function (tony) {
-            TonyRepository.remove(tony).then(function successCallback() {
-                $scope.tonies.splice($scope.tonies.indexOf(tony), 1);
+        $scope.remove = function (main) {
+            MainRepository.remove(main).then(function successCallback() {
+                $scope.tonies.splice($scope.tonies.indexOf(main), 1);
             });
         };
 

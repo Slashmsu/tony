@@ -71,6 +71,18 @@
                     // or server returns response with an error status.
                 });
             }
+            , logout: function (user) {
+                return $http({
+                    method: 'get'
+                    , url: 'http://localhost:7000/logout'
+                    , data: user
+                }).then(function successCallback(response) {
+                    return response.data;
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
+            }
             , update: function (user) {
                 return $http({
                     method: 'PUT'

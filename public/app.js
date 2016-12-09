@@ -13,7 +13,7 @@
     main.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', {
-                template: '<tony></tony>'
+                template: '<main></main>'
             })
             .when('/add', {
                 template: '<add></add>'
