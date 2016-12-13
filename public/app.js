@@ -5,7 +5,7 @@
     'use strict';
 
     var main = angular.module('app', [
-        'ngRoute', 'ui.bootstrap', 'LocalStorageModule'
+        'ngRoute', 'ui.bootstrap', 'LocalStorageModule', 'RequesterModule'
 //=================    My modules     ==================================================================================
     ]);
 //==================================== Routing =========================================================================
@@ -20,17 +20,23 @@
             })
             .when('/update/:id', {
                 template: '<add></add>'
-            }).when('/login/', {
+            })
+            .when('/login/', {
                 template: '<login></login>'
+            })
+            .when('/sign-up/', {
+                template: '<sign-up></sign-up>'
+            })
+            .when('/log-out/', {
+                template: '<logout></logout>'
             })
 
         ;
         $routeProvider.otherwise({ redirectTo: '/' });
     }]);
 
-
-    main.controller('AppCtrl', function ($scope) {
-
+    main.run(function(requesterNg) {
+        requesterNg.setUrl("http://localhost:7000");
     });
 
 })();

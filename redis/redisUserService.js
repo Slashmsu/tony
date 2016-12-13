@@ -12,6 +12,10 @@ module.exports = {
         client.set(key, JSON.stringify(user));
     },
 
+    remove: function(key) {
+        client.del(key);
+    },
+
     getUser: function(key) {
         client.get(key, function (err, reply) {
             console.log(reply.toString()); // Will print `OK`

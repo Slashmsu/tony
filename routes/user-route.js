@@ -9,7 +9,6 @@ var User = require('../models/user-model');
 var config = require('../config/secret');
 var redisUserService = require('../redis/redisUserService');
 
-
 // pass passport for configuration
 require('../config/passport')(passport);
 
@@ -18,7 +17,7 @@ require('../config/passport')(passport);
 //======================================================================================================================
 
 router.post('/signup', function(req, res) {
-    if (!req.body.name || !req.body.password) {
+    if (!req.body.email || !req.body.password) {
         res.json({success: false, msg: 'Please pass name and password.'});
     } else {
         var newUser = new User({
@@ -65,6 +64,15 @@ router.post('/authenticate', function(req, res) {
             });
         }
     });
+});
+
+//======================================================================================================================
+// Log out
+//======================================================================================================================
+
+router.get('/log-out', function(req, res) {
+    redisUserService.remove(req.token);
+    return res.status(200).send({success: true, msg: 'Log Out'});
 });
 
 //======================================================================================================================
@@ -131,7 +139,7 @@ router.get('/user/:id', function(req, res) {
 //======================================================================================================================
 
 router.post('/user', function(req, res) {
-    UserRepository.save(req.body , function (saveUser) {
+    UserRepository.save(req.body, function (saveUser) {
         res.send(saveUser);
     });
 });

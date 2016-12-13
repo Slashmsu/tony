@@ -14,9 +14,9 @@
         };
     }
 
-    function AddCtrl($scope, $location, TonyRepository, $routeParams) {
+    function AddCtrl($scope, $location, MainRepository, $routeParams) {
         if ($routeParams.id) {
-            TonyRepository.getById($routeParams.id).then(function successCallback(foundTony) {
+            MainRepository.getById($routeParams.id).then(function successCallback(foundTony) {
                 if ($routeParams.id && foundTony) {
                     $scope.tony = foundTony;
                 } else {
@@ -32,14 +32,15 @@
         };
 
         $scope.save = function (tony) {
+            console.log(tony);
             if (tony.title && tony.description) {
                 if (tony._id)
-                    TonyRepository.update(tony).then(function successCallback() {
+                    MainRepository.update(tony).then(function successCallback() {
                         console.log();
                         $location.path("/");
                     });
                 else
-                    TonyRepository.save(tony).then(function successCallback() {
+                    MainRepository.save(tony).then(function successCallback() {
                     $location.path("/");
                 });
             }

@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var secret = require('./config/secret');
 var passport	= require('passport');
 var jwt         = require('jwt-simple');
+var bearerToken = require('express-bearer-token');
 
 var Advertisement = require('./models/advertisement-model');
 var User = require('./models/user-model');
@@ -40,6 +41,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(allowCrossDomain);
 app.use(passport.initialize());
+app.use(bearerToken());
 
 var advertisementRoutes = require('./routes/advertisement-route');
 var userRoutes = require('./routes/user-route');

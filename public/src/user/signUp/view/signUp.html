@@ -1,0 +1,15 @@
+<div class="container" style="margin-top: 50px;">
+    <center><h1>Sign up</h1></center>
+    <form ng-submit="signUp(user)">
+        <input ng-model="user.name" class="form-control" placeholder="First name" type="text" required><br>
+        <input ng-model="user.secondName" class="form-control" placeholder="Second name" type="text" required><br>
+        <input ng-model="user.email" class="form-control" placeholder="Email" type="email" required><br>
+        <input ng-model="user.password" class="form-control" placeholder="password" type="password" required><br>
+        <input ng-model="repeatPassword" class="form-control" placeholder="password" type="password"><br>
+
+        <center>
+            <button type="button" class="btn btn-danger" ng-show="user.password !== repeatPassword">Passwords not similar</button>
+            <button type="submit" value="Submit" class="btn btn-primary" ng-show="user.password === repeatPassword">Sign up</button>
+        </center>
+    </form>
+</div>

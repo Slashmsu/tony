@@ -1,25 +1,25 @@
 (function() {
     'use strict';
-    angular.module('app').directive('login', login);
+    angular.module('app').directive('signUp', signUp);
 
-    angular.module('app').controller('LoginCtrl', LoginCtrl);
+    angular.module('app').controller('SignUpCtrl', SignUpCtrl);
 
 
-    function login() {
+    function signUp() {
         return {
             restrict: 'E',
             scope: true,
-            controller: 'LoginCtrl',
-            templateUrl: 'src/user/login/view/login.html'
+            controller: 'SignUpCtrl',
+            templateUrl: 'src/user/signUp/view/signUp.html'
         };
     }
 
-    function LoginCtrl($scope, $location, UserRepository, LocalStorageRepository, requesterNg) {
+    function SignUpCtrl($scope, $location, UserRepository, LocalStorageRepository, requesterNg) {
 
         $scope.user = {email: null, password: null};
 
-        $scope.login = function (user) {
-            UserRepository.authenticate(user).then(function successCallback(logenedUser) {
+        $scope.signUp = function (user) {
+            UserRepository.signup(user).then(function successCallback(logenedUser) {
                 LocalStorageRepository.setToLocalStorage("currentUser", logenedUser.user);
                 LocalStorageRepository.setToLocalStorage("token", logenedUser.token);
                 requesterNg.setToken(logenedUser.token);

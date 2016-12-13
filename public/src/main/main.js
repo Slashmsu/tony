@@ -14,41 +14,42 @@
         };
     }
 
-    function MainCtrl($scope, $location, MainRepository, LocalStorageRepository) {
+    function MainCtrl($scope, $location) {
 
-        $scope.tonies = [];
-        $scope.filter = {keywords: null};
-        $scope.currentUser = LocalStorageRepository.getCurrentUser();
-
-        $scope.changeView = function(view) {
-            $location.path(view);
-        };
-
-        $scope.logOut = function() {
-            $location.path("login");
-            $scope.currentUser = null;
-            LocalStorageRepository.clearAll();
-        };
-
-        $scope.goToUpdate = function (mainId) {
-            $location.path("update/" + mainId);
-        };
-
-        $scope.loadTonies = function (filter) {
-            MainRepository.getList(filter).then(function successCallback(tonies) {
-                $scope.tonies = tonies;
-            });
-        };
-
-        $scope.remove = function (main) {
-            MainRepository.remove(main).then(function successCallback() {
-                $scope.tonies.splice($scope.tonies.indexOf(main), 1);
-            });
-        };
+        // $scope.tonies = [];
+        // $scope.filter = {keywords: null};
+        // $scope.currentUser = LocalStorageRepository.getCurrentUser();
+        //
+        // $scope.changeView = function(view) {
+        //     $location.path(view);
+        // };
+        //
+        // $scope.logOut = function() {
+        //     $location.path("login");
+        //     $scope.currentUser = null;
+        //     LocalStorageRepository.clearAll();
+        //     requesterNg.clearToken();
+        // };
+        //
+        // $scope.goToUpdate = function (mainId) {
+        //     $location.path("update/" + mainId);
+        // };
+        //
+        // $scope.loadTonies = function (filter) {
+        //     MainRepository.getList(filter).then(function successCallback(tonies) {
+        //         $scope.tonies = tonies;
+        //     });
+        // };
+        //
+        // $scope.remove = function (main) {
+        //     MainRepository.remove(main).then(function successCallback() {
+        //         $scope.tonies.splice($scope.tonies.indexOf(main), 1);
+        //     });
+        // };
 
         // ================================ Init =======================================================================
 
-        $scope.loadTonies();
+        // $scope.loadTonies();
 
     }
 
