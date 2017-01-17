@@ -1,31 +1,60 @@
-<!--<div class="row" style="margin-top: 50px;">-->
-    <!--<div class="col-md-4">-->
-    <!--</div>-->
-    <!--<div class="col-md-4">-->
-        <!--<div class="box">-->
-            <!--<div class="container-1">-->
-                <!--<span class="icon"><i class="fa fa-search"></i></span>-->
-                <!--<input ng-model="filter.keywords" type="search" id="search" placeholder="Search...and press enter" ng-keydown="$event.which === 13 && loadTonies(filter)"/>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-md-4">-->
-        <!--<button ng-click="changeView('add')" type="button" class="btn btn-default" style="background-color: #65737e; height: 50px; width: 150px">New...</button>-->
-        <!--<button ng-show="!currentUser" ng-click="changeView('login')" type="button" class="btn btn-default" style="background-color: #65737e; height: 50px; width: 150px">Log in</button>-->
-        <!--<button ng-show="currentUser" ng-click="logOut()" type="button" class="btn btn-default" style="background-color: #65737e; height: 50px; width: 150px">Log out</button>-->
-    <!--</div>-->
-<!--</div>-->
-<navbar></navbar>
-<div class="container">
-    <div class="row" style="margin-top: 10px;">
-        <div ng-repeat="tony in tonies">
-            <div class="col-md-4">
-                <target description="tony.description" title="tony.title"></target>
-                <center style="margin-top: 5px">
-                    <button ng-click="goToUpdate(tony._id)" class="btn btn-warning">Edit</button>
-                    <button ng-click="remove(tony)" class="btn btn-danger">Remove</button>
-                </center>
+<div style="margin-top: 5%" class="jumbotron text-center">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-4" style="margin-left: 1% ">
+                    <md-autocomplete placeholder="from city..."  md-selected-item="newPackage.sourceCity" md-search-text="searchTextSourceCity" md-items="item in getCitiesList(searchTextSourceCity)" md-item-text="item.name">
+                        <md-item-template>
+                            <span md-highlight-text="searchTextSourceCity">{{item.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No matches found.
+                        </md-not-found>
+                    </md-autocomplete>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-3">
+                    <md-autocomplete placeholder="to city..." style="margin-bottom: 3%" md-selected-item="newPackage.targetCity" md-search-text="searchTextTargetCity" md-items="item in getCitiesList(searchTextTargetCity)" md-item-text="item.name">
+                        <md-item-template>
+                            <span md-highlight-text="searchTextTargetCity">{{item.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No matches found.
+                        </md-not-found>
+                    </md-autocomplete>
+                </div>
             </div>
         </div>
+        <div class="col-md-4" style="display: flex;">
+            <md-radio-group ng-model="newPackage.weight">
+                <md-radio-button value="10" class="md-primary">X</md-radio-button>
+                <md-radio-button value="50" class="md-primary">XL</md-radio-button>
+                <md-radio-button value="100" class="md-primary">XXL</md-radio-button>
+            </md-radio-group>
+            <h4 ng-show="newPackage.weight > 0">Packeg weight <= {{newPackage.weight}} kg</h4>
+        </div>
+        <div class="col-md-4">
+            <md-button md-no-ink class="md-raised md-primary" ng-click="calculate(newPackage)">Calculate</md-button>
+        </div>
     </div>
+    <div ng-show="newPackage.routs.path.length > 0">
+        <span ng-repeat="rout in newPackage.routs.path" style="background-color: gold; font-size: 14pt">
+            {{rout}} -
+        </span>
+        <span  style="background-color: gold; font-size: 14pt">
+        <label ng-show="newPackage.weight === '10'">
+                Distance {{newPackage.routs.cost}} km Cost {{newPackage.routs.cost * 0.20}}€
+        </label>
+        <label ng-show="newPackage.weight === '50'">
+            Distance {{newPackage.routs.cost}} km Cost {{newPackage.routs.cost * 0.40}}€
+        </label>
+        <label ng-show="newPackage.weight === '100'">
+            Distance {{newPackage.routs.cost}} km Cost {{newPackage.routs.cost * 0.80}}€
+        </label>
+    </span><br>
+    <md-button class="md-warn md-raised md-hue-2" ng-click="savePackage(newPackage)">Send</md-button>
+    </div>
+
 </div>

@@ -6,30 +6,38 @@
 
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.css">
-
+    <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css">
     <link rel="stylesheet" href="css/my-css.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 <!--<body style="background-color: rgba(0,0,0,0.89);">-->
-
+<navbar></navbar>
 <ng-view></ng-view>
 
 <!--Libraries-->
 <script type="text/javascript" src="../node_modules/angular/angular.js"></script>
+<script type="text/javascript" src="../node_modules/angular-aria/angular-aria.js"></script>
+<script type="text/javascript" src="../node_modules/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
 <script type="text/javascript" src="../node_modules/angular-route/angular-route.js"></script>
 <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
 <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 <script type="text/javascript" src="../node_modules/angular-local-storage/dist/angular-local-storage.js"></script>
 <script type="text/javascript" src="../node_modules/angularjs-requester--http/angularjs-requester--http.js"></script>
+<script type="text/javascript" src="../node_modules/angular-route/angular-route.js"></script>
 
 <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
 
 <!--Directives-->
 <script type="text/javascript" src="app.js"></script>
 <script type="text/javascript" src="system/localStorage.js"></script>
+<script type="text/javascript" src="directives/ng-enter.js"></script>
 <script type="text/javascript" src="src/user/service/UserRepository.js"></script>
 <script type="text/javascript" src="src/main/service/MainRepository.js"></script>
+<script type="text/javascript" src="src/main/service/CityRepository.js"></script>
+<script type="text/javascript" src="src/main/service/LogisticRepository.js"></script>
+<script type="text/javascript" src="src/main/service/PackageRepository.js"></script>
 <script type="text/javascript" src="src/user/service/UserService.js"></script>
 
 <!--General-->
@@ -42,6 +50,7 @@
 <script type="text/javascript" src="src/user/login/login.js"></script>
 <script type="text/javascript" src="src/user/logout/logout.js"></script>
 <script type="text/javascript" src="src/user/signUp/signUp.js"></script>
+<script type="text/javascript" src="src/package-page/package-page.js"></script>
 
 </body>
 </html>

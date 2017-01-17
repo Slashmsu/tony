@@ -5,7 +5,7 @@ module.exports = {
     findWithParameters: function(mongooseFilter, callback) {
 
         if (mongooseFilter.keywords)
-            var qb = User.find({ title: { $regex: ".*" + mongooseFilter.keywords + ".*" }});
+            var qb = User.find({ email: { $regex: ".*" + mongooseFilter.keywords + ".*" }});
         else
             var qb = User.find({});
 

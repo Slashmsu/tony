@@ -20,6 +20,10 @@ var UserSchema = new Schema({
         unique: true,
         required: true
     },
+    age: {
+        type: Number,
+        required: true
+    },
     created_at: Date,
     updated_at: Date
 });

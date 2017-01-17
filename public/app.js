@@ -5,7 +5,7 @@
     'use strict';
 
     var main = angular.module('app', [
-        'ngRoute', 'ui.bootstrap', 'LocalStorageModule', 'RequesterModule'
+        'ngRoute', 'ui.bootstrap', 'LocalStorageModule', 'RequesterModule', 'ngMaterial'
 //=================    My modules     ==================================================================================
     ]);
 //==================================== Routing =========================================================================
@@ -18,8 +18,8 @@
             .when('/add', {
                 template: '<add></add>'
             })
-            .when('/update/:id', {
-                template: '<add></add>'
+            .when('/package-page/:id', {
+                template: '<package-page></package-page>'
             })
             .when('/login/', {
                 template: '<login></login>'

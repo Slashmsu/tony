@@ -106,7 +106,7 @@ router.get('/memberinfo', passport.authenticate('jwt', { session: false}), funct
 router.get('/user', function(req, res) {
     var mongooseFilter = require('../services/service-models/MongooseFilter');
 
-    if ( req.query.offset !== undefined && preq.query.limit !== undefined) {
+    if ( req.query.offset !== undefined && req.query.limit !== undefined) {
         mongooseFilter.offset = parseInt(req.query.offset);
         mongooseFilter.limit = parseInt(req.query.limit);
     }

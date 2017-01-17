@@ -14,42 +14,47 @@
         };
     }
 
-    function MainCtrl($scope, $location) {
+    function MainCtrl($scope, CityRepository, LogisticRepository, PackageRepository, $location) {
 
-        // $scope.tonies = [];
-        // $scope.filter = {keywords: null};
-        // $scope.currentUser = LocalStorageRepository.getCurrentUser();
-        //
-        // $scope.changeView = function(view) {
-        //     $location.path(view);
-        // };
-        //
-        // $scope.logOut = function() {
-        //     $location.path("login");
-        //     $scope.currentUser = null;
-        //     LocalStorageRepository.clearAll();
-        //     requesterNg.clearToken();
-        // };
-        //
-        // $scope.goToUpdate = function (mainId) {
-        //     $location.path("update/" + mainId);
-        // };
-        //
-        // $scope.loadTonies = function (filter) {
-        //     MainRepository.getList(filter).then(function successCallback(tonies) {
-        //         $scope.tonies = tonies;
-        //     });
-        // };
-        //
-        // $scope.remove = function (main) {
-        //     MainRepository.remove(main).then(function successCallback() {
-        //         $scope.tonies.splice($scope.tonies.indexOf(main), 1);
-        //     });
-        // };
+        $scope.cities = [];
+        $scope.newPackage = {
+            weight: "10",
+            sourceCity: null,
+            targetCity: null,
+            routs: null,
+            cost: 0
+        };
 
-        // ================================ Init =======================================================================
+        $scope.getCitiesList = function (citiesName) {
+            return CityRepository.getAll(citiesName).then(function (cities) {
+               return cities
+            })
+        };
 
-        // $scope.loadTonies();
+        $scope.calculate = function (newPackage) {
+            return LogisticRepository.getLogisticRoute(newPackage.sourceCity.name, newPackage.targetCity.name).then(function (route) {
+                $scope.newPackage.routs = route;
+            })
+        };
+
+        $scope.savePackage = function (newPackage) {
+
+            if (newPackage.weight === "10")
+                newPackage.cost = newPackage.routs.cost * 0.20;
+            else if (newPackage.weight === "50")
+                newPackage.cost = newPackage.routs.cost * 0.40;
+            else if (newPackage.weight === "100")
+                newPackage.cost = newPackage.routs.cost * 0.80;
+
+            return PackageRepository.save(newPackage).then(function (savedPackage) {
+                $location.path( "/package-page/" + savedPackage._id);
+            })
+        };
+
+//======================================================================================================================
+// Initialization
+//======================================================================================================================
+
 
     }
 

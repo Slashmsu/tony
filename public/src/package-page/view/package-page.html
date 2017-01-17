@@ -1,0 +1,28 @@
+<div class="container">
+        <div class="row">
+            <div class="col-md-4" ng-show="package">
+                <div>
+                    <span>Package number: </span>
+                    <span style="background-color: gold">{{package._id}} </span>
+                </div>
+                <div>
+                    <span>Source city </span>
+                    <span style="background-color: gold">{{package.sourceCity.name}}</span>
+                    <span> - Target city city</span>
+                    <span style="background-color: gold">{{package.targetCity.name}}</span>
+                </div>
+
+            </div>
+            <div class="col-md-4" style="display: flex;">
+                <span>Route: </span>
+                <span style="background-color: gold" ng-repeat="city in package.routs.path"> {{city}} - </span>
+                <span style="background-color: gold"> {{package.routs.cost}} km </span>
+            </div>
+            <div class="col-md-4">
+                <span ng-show="package.weight === '10'" style="background-color: gold">Type: XL {{package.routs.cost * 0.20}}€</span>
+                <span ng-show="package.weight === '50'" style="background-color: gold">Type: XXL {{package.routs.cost * 0.40}}€</span>
+                <span ng-show="package.weight === '100'" style="background-color: gold">Type: XXXL {{package.routs.cost * 0.80}}€</span>
+            </div>
+        </div>
+
+</div>

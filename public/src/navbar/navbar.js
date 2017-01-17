@@ -14,10 +14,20 @@
         };
     }
 
-    function NavbarCtrl($scope, $location, UserService) {
+    function NavbarCtrl($scope, $location, UserService, PackageRepository) {
 
         $scope.currentUser = UserService.getCurrentUser();
         $scope.isCollapsed = true;
+        $scope.packages = [];
+
+        $scope.getPackages = function (packageId) {
+            console.log(packageId);
+            if (packageId.length >= 24)
+                return PackageRepository.find(packageId).then(function (foundPackage) {
+                    $location.path("/package-page/" + foundPackage._id);
+                    return foundPackage
+                })
+        };
 
     }
 
