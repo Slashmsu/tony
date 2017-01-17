@@ -10,11 +10,15 @@ npm i
 Use fixtures to add to database cities with neighbors. We will need it for create shortest path from
 source city to target city.
 
+```
+node fixtures/fixtures-create-cities.js
+```
+
 ![Alt text](https://github.com/Slashmsu/tony/blob/master/graph.png?raw=true "Cities graph")
 
 At main page we can search information about our package by package's id!
 Or create new package, choose source city and target city, choose package type and after calculation,
-backend will send to ass route from source city to target city.
+backend will send to us route from source city to target city.
 
 ![Alt text](https://github.com/Slashmsu/tony/blob/master/mainPage.png?raw=true "Main Page")
 
